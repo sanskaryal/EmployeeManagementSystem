@@ -1,10 +1,10 @@
-package com.exampleproject.restdemo;
+package com.codegravity.EmployeeManagementSystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestDemoApplicationTests {
+class EmployeeManagementSystemApplicationTests {
 
 	@Test
 	void contextLoads() {
