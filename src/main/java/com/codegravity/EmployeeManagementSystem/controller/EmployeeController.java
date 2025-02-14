@@ -1,6 +1,8 @@
 package com.codegravity.EmployeeManagementSystem.controller;
 
 import com.codegravity.EmployeeManagementSystem.models.Employee;
+import com.codegravity.EmployeeManagementSystem.services.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,13 +13,15 @@ import java.util.Optional;
 @RequestMapping("/employees")
 public class EmployeeController {
 
+    @Autowired
+    private EmployeeService employeeService;
+
     private List<Employee> employees = new ArrayList<>();
 
     // Create a new employee
-    @PostMapping
+    @PostMapping("/add")
     public Employee createEmployee(@RequestBody Employee employee) {
-        employees.add(employee);
-        return employee;
+        return employeeService.addEmployee(employee);
     }
 
     // Get all employees

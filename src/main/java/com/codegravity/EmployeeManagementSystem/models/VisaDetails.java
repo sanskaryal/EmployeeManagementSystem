@@ -1,10 +1,23 @@
 package com.codegravity.EmployeeManagementSystem.models;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class VisaDetails {
     private String visaStatus;
     private String startDate;
     private String endDate;
     private String document;
+
+    public VisaDetails(String visaStatus, String startDate, String endDate, String document) {
+        this.visaStatus = visaStatus;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.document = document;
+    }
+
+    public VisaDetails() {
+    }
 
     public String getVisaStatus() {
         return visaStatus;

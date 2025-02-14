@@ -1,5 +1,8 @@
 package com.codegravity.EmployeeManagementSystem.models;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class EducationDetails {
     private String universityName;
     private String degreeType;
@@ -11,6 +14,9 @@ public class EducationDetails {
         this.degreeType = degreeType;
         this.graduationDate = graduationDate;
         this.transcript = transcript;
+    }
+
+    public EducationDetails() {
     }
 
 
