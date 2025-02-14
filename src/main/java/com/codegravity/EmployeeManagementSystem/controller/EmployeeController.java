@@ -1,8 +1,6 @@
-package controller;
+package com.codegravity.EmployeeManagementSystem.controller;
 
-import com.codegravity.EmployeeManagementSystem.Employee;
-import com.codegravity.EmployeeManagementSystem.EducationDetails;
-import com.codegravity.EmployeeManagementSystem.VisaDetails;
+import com.codegravity.EmployeeManagementSystem.models.Employee;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

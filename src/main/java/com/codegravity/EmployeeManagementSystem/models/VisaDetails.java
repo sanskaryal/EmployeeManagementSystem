@@ -1,4 +1,4 @@
-package com.codegravity.EmployeeManagementSystem;
+package com.codegravity.EmployeeManagementSystem.models;
 
 public class VisaDetails {
     private String visaStatus;

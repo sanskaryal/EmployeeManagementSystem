@@ -26,9 +26,9 @@ INSERT INTO employees (
 );
 
 -- Add the middle_name column
-ALTER TABLE employees
-ADD COLUMN middle_name VARCHAR(100) AFTER first_name;
-
-ALTER TABLE employees
-DROP COLUMN middle_name;
+--ALTER TABLE employees
+--ADD COLUMN middle_name VARCHAR(100) AFTER first_name;
+--
+--ALTER TABLE employees
+--DROP COLUMN middle_name;
 
