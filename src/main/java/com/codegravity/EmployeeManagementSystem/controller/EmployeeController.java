@@ -3,11 +3,11 @@ package com.codegravity.EmployeeManagementSystem.controller;
 import com.codegravity.EmployeeManagementSystem.models.Employee;
 import com.codegravity.EmployeeManagementSystem.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -26,30 +26,23 @@ public class EmployeeController {
 
     // Get all employees
     @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employees;
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        List<Employee> employeeList = employeeService.getEmployeeList();
+        return ResponseEntity.ok(employeeList);
     }
 
     // Get an employee by ID
     @GetMapping("/{employeeId}")
-    public Employee getEmployeeById(@PathVariable String employeeId) {
-        Optional<Employee> employee = employees.stream()
-                .filter(e -> e.getEmployeeId().equals(employeeId))
-                .findFirst();
-        return employee.orElse(null);
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable String employeeId) {
+        Employee employee = employeeService.getEmployeeDetails(employeeId);
+        return ResponseEntity.ok(employee);
     }
 
     // Update an employee by ID
     @PutMapping("/{employeeId}")
-    public Employee updateEmployee(@PathVariable String employeeId, @RequestBody Employee updatedEmployee) {
-        for (int i = 0; i < employees.size(); i++) {
-            Employee employee = employees.get(i);
-            if (employee.getEmployeeId().equals(employeeId)) {
-                employees.set(i, updatedEmployee);
-                return updatedEmployee;
-            }
-        }
-        return null; // Employee not found
+    public ResponseEntity<Employee> updateEmployee(@PathVariable String employeeId, @RequestBody Employee employeeDetails) {
+        Employee updatedEmployee = employeeService.updateEmployeeDetails(employeeId, employeeDetails);
+        return ResponseEntity.ok(updatedEmployee);
     }
 
     // Delete an employee by ID
