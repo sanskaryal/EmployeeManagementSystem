@@ -1,100 +1,40 @@
+
 package com.codegravity.EmployeeManagementSystem.models;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 @Entity
 @Table(name = "employees")
+@Data // Generates Getters, Setters, toString, hashCode, equals
+@NoArgsConstructor // Generates No-Arg Constructor
+@AllArgsConstructor // Generates All-Args Constructor
 public class Employee {
 
     @Id
-    @Column(name = "employee_id", length = 50, nullable = false)
-    private String employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long employeeId;
 
-    @Column(name = "first_name", length = 100, nullable = false)
+    @NotBlank(message = "First name cannot be empty")
+    @Size(max = 50, message = "First name should be at most 50 characters")
     private String firstName;
 
-    @Column(name = "last_name", length = 100, nullable = false)
+    @NotBlank(message = "Last name cannot be empty")
+    @Size(max = 50, message = "Last name should be at most 50 characters")
     private String lastName;
 
-    @Column(name = "dob", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dob;
-
-    @Column(name = "email", length = 100, nullable = false, unique = true)
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email cannot be empty")
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "phone", length = 15)
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
     private String phone;
-
-    @Embedded
-    private EducationDetails educationDetails;
 
     @Embedded
     private VisaDetails visaDetails;
 
-    // Getters and Setters
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public VisaDetails getVisaDetails() {
-        return visaDetails;
-    }
-
-    public void setVisaDetails(VisaDetails visaDetails) {
-        this.visaDetails = visaDetails;
-    }
-
-    public EducationDetails getEducationDetails() {
-        return educationDetails;
-    }
-
-    public void setEducationDetails(EducationDetails educationDetails) {
-        this.educationDetails = educationDetails;
-    }
+    @Embedded
+    private EducationDetails educationDetails;
 }
