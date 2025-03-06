@@ -1,18 +1,24 @@
 package com.codegravity.EmployeeManagementSystem.models;
 
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 
-@Embeddable
-@Data // Lombok: Generates Getters, Setters, toString, hashCode, equals
-@NoArgsConstructor // Generates No-Arg Constructor
-@AllArgsConstructor // Generates All-Args Constructor
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class VisaDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long visaId; // Primary Key
+
     private String visaStatus;
     private LocalDate startDate;
     private LocalDate endDate;
     private String document;
 
+    @OneToOne(mappedBy = "visaDetails")
+    private Employee employee;
 }

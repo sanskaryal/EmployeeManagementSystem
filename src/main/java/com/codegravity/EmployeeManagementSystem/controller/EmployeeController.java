@@ -33,14 +33,14 @@ public class EmployeeController {
 
     // Get an employee by ID
     @GetMapping("/{employeeId}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable String employeeId) {
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long employeeId) {
         Employee employee = employeeService.getEmployeeDetails(employeeId);
         return ResponseEntity.ok(employee);
     }
 
     // Update an employee by ID
     @PutMapping("/{employeeId}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable String employeeId, @RequestBody Employee employeeDetails) {
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeId, @RequestBody Employee employeeDetails) {
         Employee updatedEmployee = employeeService.updateEmployeeDetails(employeeId, employeeDetails);
         return ResponseEntity.ok(updatedEmployee);
     }

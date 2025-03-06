@@ -1,15 +1,14 @@
-
 package com.codegravity.EmployeeManagementSystem.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "employees")
-@Data // Generates Getters, Setters, toString, hashCode, equals
-@NoArgsConstructor // Generates No-Arg Constructor
-@AllArgsConstructor // Generates All-Args Constructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
 
     @Id
@@ -24,6 +23,9 @@ public class Employee {
     @Size(max = 50, message = "Last name should be at most 50 characters")
     private String lastName;
 
+    @Temporal(TemporalType.DATE)
+    private Date dob;
+
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email cannot be empty")
     @Column(unique = true)
@@ -32,9 +34,13 @@ public class Employee {
     @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
     private String phone;
 
-    @Embedded
-    private VisaDetails visaDetails;
-
-    @Embedded
+    // Establish One-to-One Relationship with EducationDetails
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "education_id", referencedColumnName = "educationId") // Foreign key
     private EducationDetails educationDetails;
+
+    // Establish One-to-One Relationship with VisaDetails
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "visa_id", referencedColumnName = "visaId") // Foreign key
+    private VisaDetails visaDetails;
 }
