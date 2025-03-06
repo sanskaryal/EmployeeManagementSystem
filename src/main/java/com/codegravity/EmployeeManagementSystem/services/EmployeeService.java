@@ -22,12 +22,12 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee getEmployeeDetails(String employeeId){
+    public Employee getEmployeeDetails(Long employeeId){
         return employeeRepository.findByEmployeeId(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + employeeId));
     }
 
-    public Employee updateEmployeeDetails(String employeeId, Employee updatedEmployee) {
+    public Employee updateEmployeeDetails(Long employeeId, Employee updatedEmployee) {
         Employee existingEmployee = employeeRepository.findByEmployeeId(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + employeeId));
 
