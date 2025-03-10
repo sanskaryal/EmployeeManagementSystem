@@ -1,12 +1,14 @@
-# Use a Java runtime as the base image
-FROM eclipse-temurin:17-jdk-alpine
+# Build stage
+FROM maven:3.9-eclipse-temurin-17 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+RUN ls -la target/
 
-# Set the working directory
-VOLUME /tmp
-
-# Copy the built JAR file into the container
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-
-# Run the JAR file
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Run stage
+FROM openjdk:17-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+RUN ls -la /app/
+ENTRYPOINT ["java","-jar","/app/app.jar"]
